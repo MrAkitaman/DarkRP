@@ -177,24 +177,27 @@ function GM:PlayerSpawnedSENT(ply, ent)
     DarkRP.log(ply:Nick() .. " (" .. ply:SteamID() .. ") spawned SENT " .. ent:GetClass(), Color(255, 255, 0))
 end
 
-local function canSpawnWeapon(ply)
+function checkCanAccess(ply, failnotif)
     if (GAMEMODE.Config.adminweapons == 0 and ply:IsAdmin()) or
     (GAMEMODE.Config.adminweapons == 1 and ply:IsSuperAdmin()) or
     -- Can't use 2 to maintain compatibility
     (GAMEMODE.Config.adminweapons == 3) then
         return true
     end
-    DarkRP.notify(ply, 1, 4, DarkRP.getPhrase("cant_spawn_weapons"))
+
+    if failnotif then
+        DarkRP.notify(ply, 1, 4, DarkRP.getPhrase(failnotif))
+    end
 
     return false
 end
 
 function GM:PlayerSpawnSWEP(ply, class, info)
-    return canSpawnWeapon(ply) and self.Sandbox.PlayerSpawnSWEP(self, ply, class, info) and not ply:isArrested()
+    return checkCanAccess(ply, "cant_spawn_weapons") and self.Sandbox.PlayerSpawnSWEP(self, ply, class, info) and not ply:isArrested()
 end
 
 function GM:PlayerGiveSWEP(ply, class, info)
-    return canSpawnWeapon(ply) and self.Sandbox.PlayerGiveSWEP(self, ply, class, info) and not ply:isArrested()
+    return checkCanAccess(ply, "cant_spawn_weapons") and self.Sandbox.PlayerGiveSWEP(self, ply, class, info) and not ply:isArrested()
 end
 
 function GM:PlayerSpawnEffect(ply, model)
