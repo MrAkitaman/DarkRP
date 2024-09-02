@@ -84,3 +84,20 @@ hook.Add("loadCustomDarkRPItems", "CAMI privs", function()
         }
     end
 end)
+
+function checkCanAccess(ply, failnotif)
+    local config = GAMEMODE.Config[configVar]
+    
+    if (config == 0 and ply:IsAdmin()) or
+    (config == 1 and ply:IsSuperAdmin()) or
+    -- Can't use 2 to maintain compatibility
+    (config == 3) then
+        return true
+    end
+
+    if failnotif then
+        DarkRP.notify(ply, 1, 4, DarkRP.getPhrase(failnotif))
+    end
+
+    return false
+end
