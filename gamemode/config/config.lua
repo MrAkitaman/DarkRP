@@ -189,6 +189,8 @@ GM.Config.adminsents                    = 1
 GM.Config.adminvehicles                 = 3
 -- adminweapons - Who can spawn weapons: 0: admins only, 1: supadmins only, 2: no one, 3: everyone
 GM.Config.adminweapons                  = 1
+-- seeplayerjobtab - Who can see players jobs in tab menu: 0: admins only, 1: supadmins only, 2: no one, 3: everyone
+GM.Config.seeplayerjobtab               = 3
 -- arrestspeed - Sets the max arrest speed.
 GM.Config.arrestspeed                   = 120
 -- babygodtime - How long the babygod lasts.
